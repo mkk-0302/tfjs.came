@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TFJS Camera Example</title>
+</head>
+<body>
+  <video id="webcam" autoplay playsinline width="640" height="480"></video>
+  https://cdn.jsdelivr.net/npm/@tensorflow/tfjs
+  <script>
+    async function setupCamera() {
+      const webcamElement = document.getElementById('webcam');
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: false
+      });
+      webcamElement.srcObject = stream;
+      return new Promise((resolve) => {
+        webcamElement.onloadedmetadata = () => {
+          resolve(webcamElement);
+        };
+      });
+    }
+
+    setupCamera().then((webcam) => {
+      console.log("カメラが起動しました");
+    });
+  </script>
+</body>
+</html>
